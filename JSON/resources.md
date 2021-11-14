@@ -24,7 +24,7 @@ JSON.parse()
 JSON.stringify()
 ```
 
-## Syntex Rules
+# Syntex Rules
 JSON syntex is derived from javascript from JavaScript object notation syntex:
 - Data is in Name/value pairs
 - Data is separated by commas
@@ -41,7 +41,7 @@ JSON name Require Double Quotes
 #### Javascript
 ```{name : "jonny"}```
 
-### DataTypes
+## DataTypes
 In _JSON_ values must be of following types.
 - **String**
 - **number**
@@ -84,7 +84,7 @@ In Javascript
 
 ```{name : 'Roy'}```
 
-#### Javascript Objects
+## Javascript Objects
 
 Can create a object like thisL
 ```person = {name:"sam", age:32, city: "Baku"};```
@@ -120,12 +120,12 @@ document.getElementById("demo2").innerHTML = myObj["city"];
 <hr>
   dwf
   
-### Modifying the Data in JSON
+## Modifying the Data in JSON
   There are two methods:
 1. ```Person.name = "Pearson";```
 2. ```person["name"] = "pearson";```
   
- #### JSON.parse()
+ ## JSON.parse()
  
 > Use of JSON is to ecxchange the data to/from a web Server.
 > When receving data from a web server, the data is always a string.
@@ -199,7 +199,7 @@ document.getElementById("demo").innerHTML = myArr[0];
 </body>
 </html>
 ```
-### Exceptions
+## Exceptions
  #### Parsing Dates
  Date objects are not allowed in JSON.
 
@@ -262,7 +262,7 @@ document.getElementById("demo").innerHTML = obj.name + ", " + obj.birth;
 </html>
 ```
   
-  #### Parsing Functions
+  ### Parsing Functions
   Functions are not allowed in JSON.
 
 If you need to include a function, write it as a string.
