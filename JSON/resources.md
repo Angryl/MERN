@@ -118,8 +118,179 @@ document.getElementById("demo2").innerHTML = myObj["city"];
 </html>
 ```
 <hr>
+  dwf
   
 ### Modifying the Data in JSON
-  two methods:
+  There are two methods:
 1. ```Person.name = "Pearson";```
 2. ```person["name"] = "pearson";```
+  
+ #### JSON.parse()
+ 
+> Use of JSON is to ecxchange the data to/from a web Server.
+> When receving data from a web server, the data is always a string.
+> Parse the data with **JSON.parse()**, and the data become a Javascript object.
+  
+Example - Parsing JSON <br>
+Imagine we received this text data from a web server:
+  ``` '{"name" :"peter","age": 23,"city": "razak"}' ```
+ <br>
+  use Javascript function ```JSON.Parse()``` to convert text into a javascript object:
+ ```const obj = JSON.parse( '{"name" :"peter","age": 23,"city": "razak"}' ); ```
+  <br>
+  **NOTE:** Make sure the text in JSON format, or else you will get an error.
+  
+  Using java object in webpage:
+  
+ Example:
+  
+  ```<p id="test"></p>
+  
+  <script>
+    document.getElementById("test").innerHTML = obj.name;
+  </script>
+  ```
+  
+Example #2:
+
+  ```<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Creating an Object from a JSON String</h2>
+
+<p id="demo"></p>
+
+<script>
+const txt = '{"name":"John", "age":30, "city":"New York"}'
+const obj = JSON.parse(txt);
+document.getElementById("demo").innerHTML = obj.name + ", " + obj.age;
+</script>
+
+</body>
+</html>
+```
+  
+  ### Array As JSON
+  applying ```JSON.parse()``` on a JSON derived from an array, the method will return a javascript array, instead of javascript Object.
+  
+  Example:
+  
+  ```
+  const text = '["Ford", "BMW", "Audi", "Fiat"]';
+  const myArr = JSON.parse(text);
+  ```
+  
+  ```
+  <!DOCTYPE html>
+<html>
+<body>
+
+<h2>Parsing a JSON Array.</h2>
+<p>Data written as an JSON array will be parsed into a JavaScript array.</p>
+<p id="demo"></p>
+
+<script>
+const text = '[ "Ford", "BMW", "Audi", "Fiat" ]';
+const myArr = JSON.parse(text);
+document.getElementById("demo").innerHTML = myArr[0];
+</script>
+
+</body>
+</html>
+```
+### Exceptions
+ #### Parsing Dates
+ Date objects are not allowed in JSON.
+
+If you need to include a date, write it as a string.
+
+You can convert it back into a date object later:
+  
+ **Example:**
+  
+converting a string into a date:
+  ``` 
+  <!DOCTYPE html>
+<html>
+<body>
+
+<h2>Convert a string into a date object.</h2>
+<p id="demo"></p>
+
+<script>
+const text = '{"name":"John", "birth":"1986-12-14", "city":"New York"}';
+const obj = JSON.parse(text);
+obj.birth = new Date(obj.birth);
+document.getElementById("demo").innerHTML = obj.name + ", " + obj.birth; 
+</script>
+
+</body>
+</html>
+```
+ 
+we can also use the _second parameter_, of the ```JSON.parse()``` function, called _reviver_.
+
+The reviver parameter is a function that checks each property, before returning the value.
+  
+ Example:
+  
+  Convert a string into a date, using the reviver function:
+  
+  ```
+  <!DOCTYPE html>
+<html>
+<body>
+
+<h2>Convert a string into a date object.</h2>
+
+<p id="demo"></p>
+
+<script>
+const text = '{"name":"John", "birth":"1986-12-14", "city":"New York"}';
+const obj = JSON.parse(text, function (key, value) {
+  if (key == "birth") {
+    return new Date(value);
+  } else {
+    return value;
+  }
+});
+document.getElementById("demo").innerHTML = obj.name + ", " + obj.birth; 
+</script>
+
+</body>
+</html>
+```
+  
+  #### Parsing Functions
+  Functions are not allowed in JSON.
+
+If you need to include a function, write it as a string.
+
+You can convert it back into a function later:
+ 
+  **Example**
+  
+  Convert a string into a function:
+  
+  ```
+  <!DOCTYPE html>
+<html>
+<body>
+
+<h2>Convert a string into a function.</h2>
+<p id="demo"></p>
+
+<script>
+const text = '{"name":"John", "age":"function() {return 30;}", "city":"New York"}';
+const obj = JSON.parse(text);
+obj.age = eval("(" + obj.age + ")");
+document.getElementById("demo").innerHTML = obj.name + ", " + obj.age(); 
+</script>
+
+</body>
+</html>
+```
+  **NOTE:** we should avoid using functions in JSON, the functions will lose their scope, and we would have to use eval() to convert them back into functions.
+  
+  
